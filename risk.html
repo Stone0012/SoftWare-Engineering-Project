@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Risk — App Review Rating Prediction</title>
+  <link rel="stylesheet" href="css/shared.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="page">
+
+  <nav class="nav">
+    <span class="nav-brand">App Review Rating Prediction System</span>
+    <div class="nav-links">
+      <a href="index.html">Overview</a>
+      <a href="system.html">The System</a>
+      <a href="plan.html">Project Plan</a>
+      <a href="risk.html" class="active">Risk</a>
+      <a href="time.html">Time</a>
+      <a href="metrics.html">Metrics</a>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-tag">Risk Management</div>
+    <h1>Risk register</h1>
+    <p>Identified risks across ML, technical, and organizational dimensions — each with a likelihood and impact rating and a concrete mitigation strategy.</p>
+  </div>
+
+  <!-- SUMMARY STATS -->
+  <div class="risk-stats">
+    <div class="rstat"><span class="rstat-num">12</span><span class="rstat-lbl">Total risks identified</span></div>
+    <div class="rstat"><span class="rstat-num rstat-num--danger">7</span><span class="rstat-lbl">High impact risks</span></div>
+    <div class="rstat"><span class="rstat-num rstat-num--teal">6</span><span class="rstat-lbl">ML risks</span></div>
+    <div class="rstat"><span class="rstat-num rstat-num--gold">3</span><span class="rstat-lbl">Organizational risks</span></div>
+  </div>
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <span class="legend-intro">Impact:</span>
+    <div class="legend-item"><div class="leg-dot leg-high"></div>High</div>
+    <div class="legend-item"><div class="leg-dot leg-med"></div>Medium</div>
+    <div class="legend-item"><div class="leg-dot leg-low"></div>Low</div>
+    <span class="legend-intro" style="margin-left:1rem;">Type:</span>
+    <div class="legend-item"><span class="rtype rt-ml">ML</span></div>
+    <div class="legend-item"><span class="rtype rt-tech">Technical</span></div>
+    <div class="legend-item"><span class="rtype rt-org">Organizational</span></div>
+  </div>
+
+  <!-- RISK TABLE -->
+  <div class="risk-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Risk description</th>
+          <th>Type</th>
+          <th>Likelihood</th>
+          <th>Impact</th>
+          <th>Mitigation strategy</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="rid">R1</td>
+          <td>Imbalanced rating distribution may bias the model toward high ratings</td>
+          <td><span class="rtype rt-ml">ML</span></td>
+          <td><span class="badge b-high">High</span></td>
+          <td><span class="impact-dot" style="background:#e24b4a;"></span><span class="badge b-high">High</span></td>
+          <td>Use resampling techniques or alternative evaluation metrics (e.g., F1-score)</td>
+        </tr>
+        <tr>
+          <td class="rid">R2</td>
+          <td>Poor text quality (typos, slang, noise) may reduce model performance</td>
+          <td><span class="rtype rt-ml">ML</span></td>
+          <td><span class="badge b-high">High</span></td>
+          <td><span class="impact-dot" style="background:#ef9f27;"></span><span class="badge b-med">Medium</span></td>
+          <td>Apply text preprocessing — cleaning, normalization, and tokenization</td>
+        </tr>
+        <tr>
+          <td class="rid">R3</td>
+          <td>Missing values in dataset (e.g., reviewerName, textAnalytics)</td>
+          <td><span class="rtype rt-tech">Technical</span></td>
+          <td><span class="badge b-med">Medium</span></td>
+          <td><span class="impact-dot" style="background:#ef9f27;"></span><span class="badge b-med">Medium</span></td>
+          <td>Drop or impute missing values; ignore low-value columns like textAnalytics</td>
+        </tr>
+        <tr>
+          <td class="rid">R4</td>
+          <td>Duplicate records affecting training data quality</td>
+          <td><span class="rtype rt-tech">Technical</span></td>
+          <td><span class="badge b-med">Medium</span></td>
+          <td><span class="impact-dot" style="background:#ef9f27;"></span><span class="badge b-med">Medium</span></td>
+          <td>Remove duplicates during preprocessing stage</td>
+        </tr>
+        <tr>
+          <td class="rid">R5</td>
+          <td>Baseline model (linear regression) may be too simple for text data</td>
+          <td><span class="rtype rt-ml">ML</span></td>
+          <td><span class="badge b-high">High</span></td>
+          <td><span class="impact-dot" style="background:#e24b4a;"></span><span class="badge b-high">High</span></td>
+          <td>Experiment with more advanced models — classification models, TF-IDF, embeddings</td>
+        </tr>
+        <tr>
+          <td class="rid">R6</td>
+          <td>Lack of external data (e.g., system logs) limits advanced features such as outage prediction</td>
+          <td><span class="rtype rt-ml">ML</span></td>
+          <td><span class="badge b-high">High</span></td>
+          <td><span class="impact-dot" style="background:#ef9f27;"></span><span class="badge b-med">Medium</span></td>
+          <td>Clearly define scope; simulate or document as future work</td>
+        </tr>
+        <tr>
+          <td class="rid">R7</td>
+          <td>Miscommunication of requirements with stakeholders</td>
+          <td><span class="rtype rt-org">Organizational</span></td>
+          <td><span class="badge b-med">Medium</span></td>
+          <td><span class="impact-dot" style="background:#e24b4a;"></span><span class="badge b-high">High</span></td>
+          <td>Regular team discussions and clear documentation of requirements</td>
+        </tr>
+        <tr>
+          <td class="rid">R8</td>
+          <td>Limited time to implement all planned features</td>
+          <td><span class="rtype rt-org">Organizational</span></td>
+          <td><span class="badge b-high">High</span></td>
+          <td><span class="impact-dot" style="background:#e24b4a;"></span><span class="badge b-high">High</span></td>
+          <td>Prioritize core features; focus on incremental improvements</td>
+        </tr>
+        <tr>
+          <td class="rid">R9</td>
+          <td>Uncertainty in problem formulation (regression vs classification) may lead to suboptimal model choice</td>
+          <td><span class="rtype rt-ml">ML</span></td>
+          <td><span class="badge b-med">Medium</span></td>
+          <td><span class="impact-dot" style="background:#e24b4a;"></span><span class="badge b-high">High</span></td>
+          <td>Experiment with both approaches and compare performance using appropriate metrics</td>
+        </tr>
+        <tr>
+          <td class="rid">R10</td>
+          <td>SSO/authentication implementation fails or is delayed, leaving the system without access control</td>
+          <td><span class="rtype rt-tech">Technical</span></td>
+          <td><span class="badge b-med">Medium</span></td>
+          <td><span class="impact-dot" style="background:#e24b4a;"></span><span class="badge b-high">High</span></td>
+          <td>Treat FR-10 as a Must from day one; prototype authentication early and decouple it so delays don't block development</td>
+        </tr>
+        <tr>
+          <td class="rid">R11</td>
+          <td>Dashboard and visualization work underestimated, causing delivery delays on a critical feature</td>
+          <td><span class="rtype rt-org">Organizational</span></td>
+          <td><span class="badge b-med">Medium</span></td>
+          <td><span class="impact-dot" style="background:#e24b4a;"></span><span class="badge b-high">High</span></td>
+          <td>Allocate dedicated frontend effort early; use an existing charting library (Plotly, Streamlit) to reduce build time</td>
+        </tr>
+        <tr>
+          <td class="rid">R12</td>
+          <td>Complex models produce black-box outputs that cannot be explained to non-technical users, violating NFR-01</td>
+          <td><span class="rtype rt-ml">ML</span></td>
+          <td><span class="badge b-high">High</span></td>
+          <td><span class="impact-dot" style="background:#e24b4a;"></span><span class="badge b-high">High</span></td>
+          <td>Prefer interpretable models (TF-IDF + logistic regression); supplement with SHAP or LIME; include explanation quality as an evaluation criterion</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer class="foot">
+    <img src="contents/logo.png" alt="UNC Wilmington" class="foot-logo">
+    <p>App Review Rating Prediction System · University of North Carolina Wilmington</p>
+    <span>DSC592 Software Engineering for Data Science · Spring 2026</span>
+  </footer>
+
+</div>
+</body>
+</html>

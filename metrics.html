@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Metrics — App Review Rating Prediction</title>
+  <link rel="stylesheet" href="css/shared.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="page">
+
+  <nav class="nav">
+    <span class="nav-brand">App Review Rating Prediction System</span>
+    <div class="nav-links">
+      <a href="index.html">Overview</a>
+      <a href="system.html">The System</a>
+      <a href="plan.html">Project Plan</a>
+      <a href="risk.html">Risk</a>
+      <a href="time.html">Time</a>
+      <a href="metrics.html" class="active">Metrics</a>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-tag">Metrics</div>
+    <h1>Model performance & EDA findings</h1>
+    <p>Results from Phase 3 experimentation — baseline reproduction, exploratory data analysis, and model comparison across six approaches. LightGBM emerged as the strongest performer.</p>
+  </div>
+
+  <!-- HEADLINE METRIC CARDS -->
+  <div class="metrics-grid-4">
+    <div class="metric-card">
+      <div class="metric-label">Baseline RMSE</div>
+      <div class="metric-val">0.2653</div>
+      <div class="metric-sub">Linear regression on Azure ML pipeline</div>
+      <span class="metric-badge mb-base">Baseline</span>
+    </div>
+    <div class="metric-card metric-card--best">
+      <div class="metric-label">Best model RMSE</div>
+      <div class="metric-val metric-val--best">0.1958</div>
+      <div class="metric-sub">LightGBM via AutoML</div>
+      <span class="metric-badge mb-best">Best — LightGBM</span>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Best model R²</div>
+      <div class="metric-val">0.4544</div>
+      <div class="metric-sub">LightGBM — highest variance explained</div>
+      <span class="metric-badge mb-best">LightGBM</span>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Dataset size</div>
+      <div class="metric-val">~115K</div>
+      <div class="metric-sub">Reviews after deduplication and cleaning</div>
+      <span class="metric-badge mb-phase">Phase 3 EDA</span>
+    </div>
+  </div>
+
+  <!-- MODEL COMPARISON TABLE -->
+  <div class="exp-table-wrap">
+    <div class="exp-table-header">
+      <div class="sec-label">Experiment log</div>
+      <h2>Model comparison — Phase 3</h2>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Model</th>
+          <th>Method</th>
+          <th>RMSE</th>
+          <th>R²</th>
+          <th>MAE</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="model-name">Base linear regression</span></td>
+          <td><span class="method-pill mp-pipeline">Pipeline</span></td>
+          <td><span class="val-bad">0.2653</span></td>
+          <td><span class="val-bad">-0.0319</span></td>
+          <td>0.2049</td>
+          <td>Negative R² — fails to capture nonlinear text structure</td>
+        </tr>
+        <tr>
+          <td><span class="model-name">Decision forest</span></td>
+          <td><span class="method-pill mp-pipeline">Pipeline</span></td>
+          <td><span class="val-mid">0.2525</span></td>
+          <td><span class="val-mid">0.0653</span></td>
+          <td>0.1858</td>
+          <td>Captures limited nonlinearity; constrained by feature representation</td>
+        </tr>
+        <tr>
+          <td><span class="model-name">Boosted decision tree</span></td>
+          <td><span class="method-pill mp-pipeline">Pipeline</span></td>
+          <td><span class="val-mid">0.2481</span></td>
+          <td><span class="val-mid">0.0976</span></td>
+          <td>0.1935</td>
+          <td>Incremental gain from boosting; still limited by pipeline features</td>
+        </tr>
+        <tr class="highlight-row">
+          <td><span class="model-name">N-gram feature extraction <span class="insight-pill">Key experiment</span></span></td>
+          <td><span class="method-pill mp-pipeline">Pipeline</span></td>
+          <td><span class="val-mid">0.2050</span></td>
+          <td><span class="val-good">0.3850</span></td>
+          <td>0.1520</td>
+          <td>Major jump — structured text features matter more than model choice</td>
+        </tr>
+        <tr>
+          <td><span class="model-name">XGBoost</span></td>
+          <td><span class="method-pill mp-automl">AutoML</span></td>
+          <td><span class="val-mid">0.2066</span></td>
+          <td><span class="val-good">0.3925</span></td>
+          <td>0.1442</td>
+          <td>Strong gradient boosting with automated feature pipeline</td>
+        </tr>
+        <tr class="best-row">
+          <td><span class="model-name">LightGBM <span class="best-pill">Best</span></span></td>
+          <td><span class="method-pill mp-automl">AutoML</span></td>
+          <td><span class="val-good">0.1958</span></td>
+          <td><span class="val-good">0.4544</span></td>
+          <td><span class="val-good">0.1366</span></td>
+          <td>Lowest RMSE &amp; MAE, highest R² — best candidate for system integration</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- KEY FINDING CALLOUT -->
+  <div class="callout">
+    <h4>Key finding — feature representation dominates model selection</h4>
+    <p>The most significant insight from Phase 3 is that feature representation has a greater impact on performance than model choice alone. The N-gram experiment — pairing explicit text features with linear regression — achieved an R² of ~0.385, outperforming both the decision forest and boosted decision tree. Once text is properly structured, advanced models like LightGBM can fully leverage the data. Conversely, even sophisticated algorithms underperform when paired with limited preprocessing.</p>
+  </div>
+
+  <!-- PERFORMANCE HIERARCHY -->
+  <div class="hierarchy-card">
+    <div class="sec-label">Performance hierarchy</div>
+    <h2>How models progressed across Phase 3</h2>
+    <p class="hierarchy-desc">Three distinct tiers emerged — each reflecting a different combination of model complexity and feature richness.</p>
+    <div class="hierarchy-tiers">
+      <div class="tier tier--low">
+        <div class="tier-label">Tier 1 — Baseline</div>
+        <div class="tier-models">Linear Regression</div>
+        <div class="tier-note">Negative R² — predicts toward mean, unable to model text structure</div>
+      </div>
+      <div class="tier-arrow">→</div>
+      <div class="tier tier--mid">
+        <div class="tier-label">Tier 2 — Pipeline models</div>
+        <div class="tier-models">Decision Forest · Boosted Decision Tree · N-gram + Linear</div>
+        <div class="tier-note">Incremental gains; N-gram experiment showed feature engineering is the key lever</div>
+      </div>
+      <div class="tier-arrow">→</div>
+      <div class="tier tier--best">
+        <div class="tier-label">Tier 3 — AutoML</div>
+        <div class="tier-models">XGBoost · LightGBM</div>
+        <div class="tier-note">Substantial gains through combined automated feature engineering and gradient boosting</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AZURE BASELINE PIPELINE -->
+  <div class="pipeline-card">
+    <div class="sec-label">Baseline pipeline</div>
+    <h2>Azure ML baseline — linear regression</h2>
+    <p class="pipeline-desc">The baseline Azure ML pipeline was successfully reproduced. It follows a five-stage flow from raw data through text preprocessing, train/test splitting, model training, scoring, and evaluation.</p>
+    <div class="az-steps">
+      <div class="az-step"><div class="az-box">AppReview<br>Dataset</div><div class="az-lbl">Data source</div><div class="az-arr">→</div></div>
+      <div class="az-step"><div class="az-box">Preprocess<br>Text</div><div class="az-lbl">Text cleaning</div><div class="az-arr">→</div></div>
+      <div class="az-step"><div class="az-box">Split<br>Data</div><div class="az-lbl">Train / test</div><div class="az-arr">→</div></div>
+      <div class="az-step"><div class="az-box">Train<br>Model</div><div class="az-lbl">Linear regression</div><div class="az-arr">→</div></div>
+      <div class="az-step"><div class="az-box">Score &amp;<br>Evaluate</div><div class="az-lbl">Evaluation results</div></div>
+    </div>
+    <div class="sec-label" style="margin-top:1.25rem;">Baseline evaluation results</div>
+    <div class="baseline-results">
+      <div class="br-item"><div class="br-label">R²</div><div class="br-val br-val--neg">-0.0319</div></div>
+      <div class="br-item"><div class="br-label">MAE</div><div class="br-val">0.2049</div></div>
+      <div class="br-item"><div class="br-label">RMSE</div><div class="br-val">0.2653</div></div>
+      <div class="br-item"><div class="br-label">Rel. abs. error</div><div class="br-val">0.9896</div></div>
+    </div>
+  </div>
+
+  <!-- EDA FINDINGS -->
+  <div class="sec-label" style="margin-bottom:1rem;">Exploratory data analysis</div>
+
+  <div class="eda-grid">
+
+    <div class="eda-card">
+      <h3>Rating distribution</h3>
+      <p>The distribution is strongly left-skewed toward high values, with a dominant concentration of ratings near 1.0. This class imbalance directly informed the need to use F1-score and resampling techniques alongside accuracy.</p>
+      <div class="eda-stat-row">
+        <div class="eda-stat"><span class="eda-stat-num">~1.0</span><span class="eda-stat-lbl">Dominant rating</span></div>
+        <div class="eda-stat"><span class="eda-stat-num">High</span><span class="eda-stat-lbl">Class imbalance</span></div>
+        <div class="eda-stat"><span class="eda-stat-num">R1</span><span class="eda-stat-lbl">Risk addressed</span></div>
+      </div>
+    </div>
+
+    <div class="eda-card">
+      <h3>Sentiment distribution</h3>
+      <p>Positive reviews overwhelmingly dominate the dataset. Neutral and negative reviews make up a small but analytically important minority — particularly for issue detection.</p>
+      <div class="sent-bars">
+        <div class="sent-row">
+          <span class="sent-label">Positive</span>
+          <div class="sent-bar-wrap"><div class="sent-bar sb-pos" style="width:77%;"></div></div>
+          <span class="sent-count">~89K</span>
+        </div>
+        <div class="sent-row">
+          <span class="sent-label">Neutral</span>
+          <div class="sent-bar-wrap"><div class="sent-bar sb-neu" style="width:12%;"></div></div>
+          <span class="sent-count">14,399</span>
+        </div>
+        <div class="sent-row">
+          <span class="sent-label">Negative</span>
+          <div class="sent-bar-wrap"><div class="sent-bar sb-neg" style="width:9%;"></div></div>
+          <span class="sent-count">10,367</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="eda-card">
+      <h3>Issue categorization</h3>
+      <p>The vast majority of reviews fall into "other" — general positive feedback without specific issue keywords. System failure reviews, though fewer, carry the highest priority scores and lowest average ratings.</p>
+      <div class="cat-bars">
+        <div class="cat-row"><span class="cat-label">Other</span><div class="cat-bar-wrap"><div class="cat-bar" style="width:92%;"></div></div><span class="cat-count">~89K</span></div>
+        <div class="cat-row"><span class="cat-label">Usability</span><div class="cat-bar-wrap"><div class="cat-bar" style="width:5%;"></div></div><span class="cat-count">low</span></div>
+        <div class="cat-row"><span class="cat-label">Sys. failure</span><div class="cat-bar-wrap"><div class="cat-bar" style="width:3%;"></div></div><span class="cat-count">low</span></div>
+        <div class="cat-row"><span class="cat-label">Performance</span><div class="cat-bar-wrap"><div class="cat-bar" style="width:2%;"></div></div><span class="cat-count">low</span></div>
+      </div>
+    </div>
+
+    <div class="eda-card">
+      <h3>Review length & trends over time</h3>
+      <p>Most reviews are short — the length distribution is right-skewed, with a small number of long, detailed reviews. Review volume shows an upward trend from 2009–2017 with a sharp drop around September 2017. Average ratings peaked early (~0.97 in 2009) and declined to their lowest around 2015–2016 (~0.79) before a modest recovery.</p>
+      <div class="eda-stat-row">
+        <div class="eda-stat"><span class="eda-stat-num">0.97</span><span class="eda-stat-lbl">Peak avg. rating (2009)</span></div>
+        <div class="eda-stat"><span class="eda-stat-num">0.79</span><span class="eda-stat-lbl">Low avg. rating (2015–16)</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DATA QUALITY -->
+  <div class="eda-card" style="margin-bottom:1.5rem;">
+    <div class="sec-label">Data quality</div>
+    <h3 style="font-family:'Lora',Georgia,serif;font-size:17px;font-weight:600;margin-bottom:0.75rem;">Cleaning steps applied</h3>
+    <div class="cleaning-grid">
+      <div class="cleaning-item"><div class="cleaning-dot"></div>Duplicates removed from dataset</div>
+      <div class="cleaning-item"><div class="cleaning-dot"></div><code>textAnalytics</code> and <code>reviewerName</code> columns dropped (too many missing values)</div>
+      <div class="cleaning-item"><div class="cleaning-dot"></div>Text lowercased, digits removed, punctuation stripped</div>
+      <div class="cleaning-item"><div class="cleaning-dot"></div>Review dates parsed and converted to datetime</div>
+      <div class="cleaning-item"><div class="cleaning-dot"></div>Review length feature engineered from raw text</div>
+      <div class="cleaning-item"><div class="cleaning-dot"></div>Sentiment and priority scores derived from reviewer ratings</div>
+    </div>
+  </div>
+
+  <!-- EXPERIMENT 3 NOTE -->
+  <div class="exp3-note">
+    <div class="exp3-icon">⚠</div>
+    <div>
+      <div class="exp3-title">Experiment 3 — Review substance filtering (tooling constraint)</div>
+      <p>Experiment 3 evaluated the impact of filtering low-substance reviews based on textual length. Azure ML Designer does not support dynamic string-length filtering within this pipeline. Prior data analysis showed that very short reviews dominate the dataset and contribute limited semantic signal. In production, these reviews would be filtered prior to preprocessing to improve model stability and interpretability. Feature-level constraints served as a practical proxy, highlighting the importance of system-level design decisions when tooling imposes limitations.</p>
+    </div>
+  </div>
+
+  <footer class="foot">
+    <img src="contents/logo.png" alt="UNC Wilmington" class="foot-logo">
+    <p>App Review Rating Prediction System · University of North Carolina Wilmington</p>
+    <span>DSC592 Software Engineering for Data Science · Spring 2026</span>
+  </footer>
+
+</div>
+</body>
+</html>
