@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>App Review Project</title>
+
+    <style>
+        body {
+            margin: 0;
+            background-color: #f4f6f8;
+            font-family: 'Segoe UI', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 60px;  
+            margin-right: 5px;
+        }
+
+        .site-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: rgb(214, 207, 207);
+            line-height: 1;
+            position: relative;
+            top: 1px;
+}
+
+        /* NAVBAR */
+        .navbar {
+            background-color: #343a40;
+            padding: 15px 40px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            align-items: center;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: grey;
+            font-weight: 500;
+            margin-left: 25px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        /* hover color */
+        .navbar a:hover {
+            color: cadetblue;
+        }
+
+        /* animated underline */
+        .navbar a::after {
+            content: "";
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            left: 0;
+            bottom: -5px;
+            background-color: cadetblue;
+            transition: width 0.3s ease;
+        }
+
+        .navbar a:hover::after {
+            width: 100%;
+}
+        
+
+        /* CONTENT */
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: rgb(201, 212, 212);
+            padding: 30px;
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        h2 {
+            color: #34495e;
+        }
+        section {
+            padding: 100px 60px;
+            min-height: 100vh;
+        }
+
+
+        .hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+
+            background: linear-gradient(135deg, #0077ff, #00c6ff);
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            max-width: 600px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        ul {
+            margin-top: 15px;
+            list-style: none;
+        }
+
+        ul li {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        ul li::before {
+            content: "➜";
+            color: #2c3e50;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            border-top: 1px solid #ddd;
+            background-color: #343a40;
+            position: sticky;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+        }
+
+        .footer img {
+            width: 120px;
+            margin-bottom: 10px;
+        }
+
+        .footer p {
+            color: white;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    
+    <div class="header"> 
+        <img src="app_logo.png" alt="app Logo" class="logo">
+        <span class="site-title">App Review Rating Prediction System</span>
+    </div>
+
+    <div class="nav-links">
+        <a href="#synopsis">Synopsis</a>
+        <a href="#models">Models</a>
+        <a href="#project">Project Plan</a>
+        <a href="#risk">Risk Management</a>
+        <a href="#time">Time & Effort</a>
+        <a href="#metrics">Metrics</a>
+    </div>
+</div>
+
+<!-- CONTENT -->
+<div class="container">
+    <section id="synopsis" class="section">
+    <h1>Project Synopsis</h1>
+
+<p>
+This project focuses on improving an existing machine learning system that predicts app ratings from free-text user reviews.
+The goal is to help product teams better understand app performance by analyzing user feedback and extracting meaningful insights.
+</p>
+
+<p>
+The system is developed following a full software engineering lifecycle, including requirements analysis, system design,
+implementation, and evaluation. Special emphasis is placed on applying software engineering principles to data science workflows.
+</p>
+
+<h2>Project Goals</h2>
+
+<ul class="costum">
+    <li>Improve the accuracy of rating prediction from user reviews</li>
+    <li>Extract meaningful insights from unstructured text data</li>
+    <li>Design a scalable and reliable machine learning pipeline</li>
+    <li>Enhance usability for non-technical users</li>
+    <li>Apply software engineering practices to a real-world ML system</li>
+</ul>
+</section>
+
+<section id="models" class="section">
+    <h1>Models</h1>
+    <p>Content will be added in later phases.</p>
+</section>
+
+<section id="project" class="section">
+    <h1>Project Plan</h1>
+    <p>Content will be added in later phases.</p>
+</section>
+
+<section id="risk" class="section">
+    <h1>Risk Management</h1>
+    <table border="1" cellpadding="8" cellspacing="0">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Risk Description</th>
+      <th>Type</th>
+      <th>Likelihood</th>
+      <th>Impact</th>
+      <th>Mitigation Strategy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>R1</td>
+      <td>Imbalanced rating distribution may bias the model toward high ratings</td>
+      <td>ML</td>
+      <td>High</td>
+      <td>High</td>
+      <td>Use resampling techniques or alternative evaluation metrics (e.g., F1-score)</td>
+    </tr>
+    <tr>
+      <td>R2</td>
+      <td>Poor text quality (typos, slang, noise) may reduce model performance</td>
+      <td>ML</td>
+      <td>High</td>
+      <td>Medium</td>
+      <td>Apply text preprocessing (cleaning, normalization, tokenization)</td>
+    </tr>
+    <tr>
+      <td>R3</td>
+      <td>Missing values in dataset (e.g., reviewerName, textAnalytics)</td>
+      <td>Technical</td>
+      <td>Medium</td>
+      <td>Medium</td>
+      <td>Drop or impute missing values; ignore low-value columns like textAnalytics</td>
+    </tr>
+    <tr>
+      <td>R4</td>
+      <td>Duplicate records affecting training quality</td>
+      <td>Technical</td>
+      <td>Medium</td>
+      <td>Medium</td>
+      <td>Remove duplicates during preprocessing</td>
+    </tr>
+    <tr>
+      <td>R5</td>
+      <td>Baseline model (linear regression) may be too simple for text data</td>
+      <td>ML</td>
+      <td>High</td>
+      <td>High</td>
+      <td>Experiment with more advanced models (e.g., classification models, TF-IDF, embeddings)</td>
+    </tr>
+    <tr>
+      <td>R6</td>
+      <td>Lack of external data (e.g., system logs) limits advanced features such as outage prediction</td>
+      <td>ML</td>
+      <td>High</td>
+      <td>Medium</td>
+      <td>Clearly define scope; simulate or document as future work</td>
+    </tr>
+    <tr>
+      <td>R7</td>
+      <td>Miscommunication of requirements with stakeholders</td>
+      <td>Organizational</td>
+      <td>Medium</td>
+      <td>High</td>
+      <td>Regular team discussions and clear documentation of requirements</td>
+    </tr>
+    <tr>
+      <td>R8</td>
+      <td>Limited time to implement all planned features</td>
+      <td>Organizational</td>
+      <td>High</td>
+      <td>High</td>
+      <td>Prioritize core features; focus on incremental improvements</td>
+    </tr>
+    <tr>
+      <td>R9</td>
+      <td>Uncertainty in problem formulation (regression vs classification) may lead to suboptimal model choice</td>
+      <td>ML</td>
+      <td>Medium</td>
+      <td>High</td>
+      <td>Experiment with both approaches and compare performance using appropriate metrics</td>
+    </tr>
+    <tr>
+      <td>R10</td>
+      <td>SSO/authentication implementation fails or is delayed, leaving the system without access control</td>
+      <td>Technical</td>
+      <td>Medium</td>
+      <td>High</td>
+      <td>Treat FR-10 as a Must from day one; prototype authentication early and decouple it from other features so delays don't block the rest of development</td>
+    </tr>
+    <tr>
+      <td>R11</td>
+      <td>Dashboard and visualization work underestimated, causing delivery delays on a critical feature</td>
+      <td>Organizational</td>
+      <td>Medium</td>
+      <td>High</td>
+      <td>Allocate dedicated frontend effort early; use charting libraries like Plotly or Streamlit instead of building from scratch</td>
+    </tr>
+    <tr>
+      <td>R12</td>
+      <td>Complex models produce black-box outputs that reduce interpretability for non-technical users</td>
+      <td>ML</td>
+      <td>High</td>
+      <td>High</td>
+      <td>Prefer interpretable models; use SHAP/LIME explanations; evaluate explainability alongside accuracy</td>
+    </tr>
+  </tbody>
+</table>
+</section>
+
+<section id="time" class="section">
+    <h1>Time & Effort</h1>
+    <p>Content will be added in later phases.</p>
+</section>
+
+<section id="metrics" class="section">
+    <h1>Metrics</h1>
+    <p>Content will be added in later phases.</p>
+</section>
+
+</div>
+
+<div class="footer">
+    <img src="logo.png" alt="UNCW Logo">
+    <p>University of North Carolina Wilmington</p>
+</div>
+
+</body>
+</html>
